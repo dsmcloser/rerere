@@ -1,9 +1,27 @@
-import random
-import string
+import java.security.SecureRandom;
 
-def generate_password(length=12):
-    characters = string.ascii_letters + string.digits + string.punctuation
-    password = ''.join(random.choice(characters) for _ in range(length))
-    return password
+public class PasswordGenerator {
+    public static String generatePassword(int length) {
+        // Define the character set for the password
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~";
+        
+        // Use SecureRandom for better randomness
+        SecureRandom random = new SecureRandom();
+        
+        // StringBuilder to construct the password
+        StringBuilder password = new StringBuilder(length);
+        
+        for (int i = 0; i < length; i++) {
+            // Select a random character from the character set
+            int index = random.nextInt(characters.length());
+            password.append(characters.charAt(index));
+        }
+        
+        return password.toString();
+    }
 
-print("Generated Password:", generate_password(16))
+    public static void main(String[] args) {
+        // Generate a password of length 16
+        System.out.println("Generated Password: " + generatePassword(16));
+    }
+}
